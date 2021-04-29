@@ -12,6 +12,12 @@ public interface MessageService {
     //删除所有聊天记录
     public boolean deleteAll(Integer userId);
 
+    //删除和某个好友的聊天记录
+    public boolean delFriendRecord(Integer userId,Integer friendId);
+
+    //查询所有聊天，聊天列表
+    public List<Message> allRecord(Integer userId);
+
     //查询某个用户和其某个好友的聊天记录
     public List<Message> friendRecord(Integer userId, Integer friendId);
 }

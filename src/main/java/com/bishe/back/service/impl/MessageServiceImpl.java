@@ -27,7 +27,17 @@ public class MessageServiceImpl implements MessageService {
         return messageMapper.deleteAll(userId)>0;
     }
 
-    //
+    //删除和某个好友的聊天记录
+    @Override
+    public boolean delFriendRecord(Integer userId,Integer friendId) {
+        return messageMapper.delFriendRecord(userId,friendId)>0;
+    }
+
+    //查询所有聊天，聊天列表
+    @Override
+    public List<Message> allRecord(Integer userId) {
+        return messageMapper.allRecord(userId);
+    }
 
     //查询某个用户和其某个好友的聊天记录
     @Override

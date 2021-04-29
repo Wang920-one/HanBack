@@ -76,11 +76,24 @@
         where userId = #{userId}
     </delete>
 
+    <delete id="delFriendRecord" parameterType="java.lang.Integer">
+        delete
+        from message
+        where userId = #{userId} and friendId = #{friendId}
+    </delete>
+
     <select id="friendRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from message
         where userId = #{userId} and friendId = #{friendId}
+    </select>
+
+    <select id="allRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where userId = #{userId} and userId = #{friendId}
     </select>
 
 </mapper>
