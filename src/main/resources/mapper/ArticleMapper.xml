@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Article">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="useId" jdbcType="INTEGER" property="useId"/>
+        <result column="atcDescribe" jdbcType="VARCHAR" property="atcDescribe"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="atcType" jdbcType="TINYINT" property="atcType"/>
+        <result column="atcLabel" jdbcType="VARCHAR" property="atcLabel"/>
+        <result column="atcBrowse" jdbcType="INTEGER" property="atcBrowse"/>
+        <result column="atcThumes" jdbcType="INTEGER" property="atcThumes"/>
+        <result column="atcSc" jdbcType="INTEGER" property="atcSc"/>
+        <result column="atcTime" jdbcType="TIMESTAMP" property="atcTime"/>
+        <result column="actShare" jdbcType="INTEGER" property="actShare"/>
+        <result column="actText" jdbcType="VARCHAR" property="actText"/>
+        <result column="bioati" jdbcType="VARCHAR" property="bioati"/>
+        <result column="actReview" jdbcType="TINYINT" property="actReview"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,atcSc
+        ,useId,bioati,atcDescribe,pic,atcType,atcLabel,atcBrowse,atcThumes,atcTime,actShare,actText,actReview
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Article">
+        insert into articles
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="useId != null">
+                useId,
+            </if>
+            <if test="bioati != null">
+                bioati,
+            </if>
+            <if test="atcDescribe != null">
+                atcDescribe,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="atcThumes != null">
+                atcThumes,
+            </if>
+            <if test="atcLabel != null">
+                atcLabel,
+            </if>
+            <if test="atcBrowse != null">
+                atcBrowse,
+            </if>
+            <if test="atcSc != null">
+                atcSc,
+            </if>
+            atcTime,
+            <if test="actShare != null">
+                actShare,
+            </if>
+            <if test="actText != null">
+                actText,
+            </if>
+            <if test="atcType != null">
+                atcType,
+            </if>
+            <if test="actReview != null">
+                actReview,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="useId != null">
+                #{useId},
+            </if>
+            <if test="bioati != null">
+                #{bioati},
+            </if>
+            <if test="atcDescribe != null">
+                #{atcDescribe},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="atcThumes != null">
+                #{atcThumes},
+            </if>
+            <if test="atcSc != null">
+                #{atcSc},
+            </if>
+            <if test="atcLabel != null">
+                #{atcLabel},
+            </if>
+            <if test="atcBrowse != null">
+                #{atcBrowse},
+            </if>
+            now(),
+            <if test="actShare != null">
+                #{actShare},
+            </if>
+            <if test="actText != null">
+                #{actText},
+            </if>
+            <if test="atcType != null">
+                #{atcType},
+            </if>
+            <if test="actReview != null">
+                #{actReview},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bishe.back.domain.Article">
+        update articles
+        <set>
+            <if test="useId != null">
+                useId = #{useId},
+            </if>
+            <if test="bioati != null">
+                bioati = #{bioati},
+            </if>
+            <if test="atcDescribe != null">
+                atcDescribe = #{atcDescribe},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="atcThumes != null">
+                atcThumes = #{atcThumes},
+            </if>
+            <if test="atcSc != null">
+                atcSc = #{atcSc},
+            </if>
+            <if test="atcLabel != null">
+                atcLabel = #{atcLabel},
+            </if>
+            <if test="atcBrowse != null">
+                atcBrowse = #{atcBrowse},
+            </if>
+            <if test="atcTime != null">
+                atcTime = now(),
+            </if>
+            <if test="actShare != null">
+                actShare = #{actShare},
+            </if>
+            <if test="actText != null">
+                actText = #{actText},
+            </if>
+            <if test="atcType != null">
+                atcType = #{atcType},
+            </if>
+            <if test="actReview != null">
+                actReview = #{actReview},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from articles
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from articles
+        where id = #{id}
+    </select>
+
+    <select id="articleOfUseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from articles
+        where useId = #{useId}
+    </select>
+
+    <select id="allArticle" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from articles
+
+    </select>
+
+    <select id="articleOfBioati" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from articles
+        where bioati like #{bioati}
+    </select>
+</mapper>

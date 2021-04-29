@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.ThumbMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Thumb">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="useId" jdbcType="INTEGER" property="useId"/>
+        <result column="videoId" jdbcType="INTEGER" property="videoId"/>
+        <result column="atcId" jdbcType="INTEGER" property="atcId"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="dzTime" jdbcType="TIMESTAMP" property="dzTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,useId,videoId,atcId,
+        type,dzTime
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Thumb">
+        insert into thumb
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="useId != null">
+                useId,
+            </if>
+            <if test="videoId != null">
+                videoId,
+            </if>
+            <if test="atcId != null">
+                atcId,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            dzTime,
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="useId != null">
+                #{useId},
+            </if>
+            <if test="videoId != null">
+                #{videoId},
+            </if>
+            <if test="atcId != null">
+                #{atcId},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            now(),
+        </trim>
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from thumb
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from thumb
+        where id = #{id}
+    </select>
+
+    <select id="allThumb" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from thumb
+    </select>
+
+    <select id="thumbOfUseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from thumb
+        where useId=#{useId}
+    </select>
+
+    <select id="existAtcId" resultType="java.lang.Integer">
+        select count(*)
+        from thumb
+        where useId=#{useId} and atcId = #{atcId}
+    </select>
+
+    <select id="existVideoId" resultType="java.lang.Integer">
+        select count(*)
+        from thumb
+        where useId=#{useId} and videoId = #{videoId}
+    </select>
+</mapper>

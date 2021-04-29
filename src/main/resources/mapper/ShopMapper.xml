@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.ShopMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Shop">
+        <id column="shopId" jdbcType="INTEGER" property="shopId"/>
+        <result column="shopName" jdbcType="VARCHAR" property="shopName"/>
+        <result column="shopHttp" jdbcType="VARCHAR" property="shopHttp"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="shopYear" jdbcType="TIMESTAMP" property="shopYear"/>
+        <result column="shopFans" jdbcType="INTEGER" property="shopFans"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shopId,shopName,shopHttp,pic,
+        shopYear,shopFans
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Shop">
+        insert into hanfushop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shopId,
+            </if>
+            <if test="shopName != null">
+                shopName,
+            </if>
+            <if test="shopHttp != null">
+                shopHttp,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="shopYear != null">
+                shopYear,
+            </if>
+            <if test="shopFans != null">
+                shopFans,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId},
+            </if>
+            <if test="shopName != null">
+                #{shopName},
+            </if>
+            <if test="shopHttp != null">
+                #{shopHttp},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="shopYear != null">
+                #{shopYear},
+            </if>
+            <if test="shopFans != null">
+                #{shopFans},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bishe.back.domain.Shop">
+        update hanfushop
+        <set>
+            <if test="shopName != null">
+                shopName = #{shopName},
+            </if>
+            <if test="shopHttp != null">
+                shopHttp = #{shopHttp},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="shopYear != null">
+                shopYear = #{shopYear},
+            </if>
+            <if test="shopFans != null">
+                shopFans = #{shopFans},
+            </if>
+
+        </set>
+        where shopId = #{shopId}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from hanfushop
+        where shopId = #{shopId}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfushop
+        where shopId = #{shopId}
+    </select>
+
+    <select id="allShop" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfushop
+    </select>
+
+    <select id="shopOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfushop
+        where shopName like #{shopName}
+    </select>
+
+    <select id="getByShopname" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfushop
+        where shopName = #{shopName}
+    </select>
+
+    <select id="shopOfFans" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfushop
+        order by shopFans desc
+    </select>
+
+    <select id="shopOfYear" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfushop
+        order by shopYear desc
+    </select>
+
+</mapper>

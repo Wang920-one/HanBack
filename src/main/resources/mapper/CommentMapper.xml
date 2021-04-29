@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Comment">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="useId" jdbcType="INTEGER" property="useId"/>
+        <result column="videoid" jdbcType="INTEGER" property="videoid"/>
+        <result column="articleid" jdbcType="INTEGER" property="articleid"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="parentId" jdbcType="INTEGER" property="parentId"/>
+        <result column="comtContent" jdbcType="VARCHAR" property="comtContent"/>
+        <result column="comtTime" jdbcType="TIMESTAMP" property="comtTime"/>
+        <result column="up" jdbcType="INTEGER" property="up"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,useId,videoid,articleid,
+        type,parentId,comtContent,comtTime,up
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Comment">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="useId != null">
+                useId,
+            </if>
+            <if test="videoid != null">
+                videoid,
+            </if>
+            <if test="articleid != null">
+                articleid,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="up != null">
+                up,
+            </if>
+            <if test="comtContent != null">
+                comtContent,
+            </if>
+            comtTime,
+            <if test="parentId != null">
+                parentId,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="useId != null">
+                #{useId},
+            </if>
+            <if test="videoid != null">
+                #{videoid},
+            </if>
+            <if test="articleid != null">
+                #{articleid},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="up != null">
+                #{up},
+            </if>
+            <if test="comtContent != null">
+                #{comtContent},
+            </if>
+             now(),
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bishe.back.domain.Comment">
+        update comment
+        <set>
+            <if test="useId != null">
+                useId = #{useId},
+            </if>
+            <if test="videoid != null">
+                videoid = #{videoid},
+            </if>
+            <if test="articleid != null">
+                articleid = #{articleid},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="up != null">
+                up = #{up},
+            </if>
+            <if test="comtContent != null">
+                comtContent = #{comtContent},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from comment
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where id = #{id}
+    </select>
+
+    <select id="allComment" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+    </select>
+
+    <select id="commentOfVideoId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where videoid = #{videoid}
+    </select>
+
+    <select id="commentOfArticleId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where articleid = #{articleid}
+    </select>
+</mapper>

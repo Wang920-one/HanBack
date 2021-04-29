@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.SubscribeMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Subscribe">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="beSubscribe" jdbcType="INTEGER" property="beSubscribe"/>
+        <result column="subscribe" jdbcType="INTEGER" property="subscribe"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,beSubscribe,subscribe,time
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Subscribe">
+        insert into subscribe
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="beSubscribe != null">
+                beSubscribe,
+            </if>
+            <if test="subscribe != null">
+                subscribe,
+            </if>
+            time,
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="beSubscribe != null">
+                #{beSubscribe},
+            </if>
+            <if test="subscribe != null">
+                #{subscribe},
+            </if>
+            now(),
+        </trim>
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from subscribe
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from subscribe
+        where id = #{id}
+    </select>
+
+    <select id="allSubscribe" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from subscribe
+    </select>
+
+    <select id="listOfSubscribe" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from subscribe
+        where subscribe=#{subscribe}
+    </select>
+
+    <select id="listOfBeSubscribe" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from subscribe
+        where beSubscribe=#{beSubscribe}
+    </select>
+
+    <select id="existSubscribe" resultType="java.lang.Integer">
+        select count(*)
+        from subscribe
+        where beSubscribe=#{beSubscribe} and subscribe = #{subscribe}
+    </select>
+
+</mapper>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.VideoMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Video">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="useId" jdbcType="VARCHAR" property="useId"/>
+        <result column="videoTitle" jdbcType="VARCHAR" property="videoTitle"/>
+        <result column="videoDes" jdbcType="VARCHAR" property="videoDes"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="videoType" jdbcType="VARCHAR" property="videoType"/>
+        <result column="videoLabel" jdbcType="VARCHAR" property="videoLabel"/>
+        <result column="videoBrowse" jdbcType="INTEGER" property="videoBrowse"/>
+        <result column="videoThumes" jdbcType="INTEGER" property="videoThumes"/>
+        <result column="videoTime" jdbcType="TIMESTAMP" property="videoTime"/>
+        <result column="videoShare" jdbcType="INTEGER" property="videoShare"/>
+        <result column="videoSc" jdbcType="INTEGER" property="videoSc"/>
+        <result column="videoFile" jdbcType="VARCHAR" property="videoFile"/>
+        <result column="videoReview" jdbcType="TINYINT" property="videoReview"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,videoSc,useId,videoTitle,videoDes,pic,videoType,videoLabel,videoBrowse,videoThumes,videoTime,videoShare,videoFile,videoReview
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Video">
+        insert into video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="useId != null">
+                useId,
+            </if>
+            <if test="videoTitle != null">
+                videoTitle,
+            </if>
+            <if test="videoDes != null">
+                videoDes,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="videoThumes != null">
+                videoThumes,
+            </if>
+            <if test="videoLabel != null">
+                videoLabel,
+            </if>
+            <if test="videoBrowse != null">
+                videoBrowse,
+            </if>
+            videoTime,
+            <if test="videoShare != null">
+                videoShare,
+            </if>
+            <if test="videoSc != null">
+                videoSc,
+            </if>
+            <if test="videoFile != null">
+                videoFile,
+            </if>
+            <if test="videoType != null">
+                videoType,
+            </if>
+            <if test="videoReview != null">
+                videoReview,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="useId != null">
+                #{useId},
+            </if>
+            <if test="videoTitle != null">
+                #{videoTitle},
+            </if>
+            <if test="videoDes != null">
+                #{videoDes},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="videoThumes != null">
+                #{videoThumes},
+            </if>
+            <if test="videoLabel != null">
+                #{videoLabel},
+            </if>
+            <if test="videoBrowse != null">
+                #{videoBrowse},
+            </if>
+            now(),
+            <if test="videoShare != null">
+                #{videoShare},
+            </if>
+            <if test="videoSc != null">
+                #{videoSc},
+            </if>
+            <if test="videoFile != null">
+                #{videoFile},
+            </if>
+            <if test="videoType != null">
+                #{videoType},
+            </if>
+            <if test="videoReview != null">
+                #{videoReview},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bishe.back.domain.Video">
+        update video
+        <set>
+            <if test="videoTitle != null">
+                videoTitle = #{videoTitle},
+            </if>
+            <if test="videoDes != null">
+                videoDes = #{videoDes},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="videoThumes != null">
+                videoThumes = #{videoThumes},
+            </if>
+            <if test="videoLabel != null">
+                videoLabel = #{videoLabel},
+            </if>
+            <if test="videoBrowse != null">
+                videoBrowse = #{videoBrowse},
+            </if>
+            <if test="videoTime != null">
+                videoTime = now(),
+            </if>
+            <if test="videoShare != null">
+                videoShare = #{videoShare},
+            </if>
+            <if test="videoSc != null">
+                videoSc = #{videoSc},
+            </if>
+            <if test="videoFile != null">
+                videoFile = #{videoFile},
+            </if>
+            <if test="videoType != null">
+                videoType = #{videoType},
+            </if>
+            <if test="videoReview != null">
+                videoReview = #{videoReview},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete
+        from video
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where id = #{id}
+    </select>
+
+    <select id="videoOfUseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where useId = #{useId}
+    </select>
+
+    <select id="allVideo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+    </select>
+
+    <select id="videoOfTitle" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where videoTitle like #{videoTitle}
+    </select>
+
+    <select id="videoOfType" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where videoType like #{videoType}
+    </select>
+
+    <select id="videoOfBrowse" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        order by videoBrowse desc
+    </select>
+
+    <select id="videoOfCollect" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        order by videoSc desc
+    </select>
+
+    <select id="videoOfThumse" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        order by videoThumes desc
+    </select>
+
+</mapper>

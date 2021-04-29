@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.SuggestMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Suggest">
+        <id column="sugId" jdbcType="INTEGER" property="sugId"/>
+        <result column="useId" jdbcType="INTEGER" property="useId"/>
+        <result column="sugTitle" jdbcType="VARCHAR" property="sugTitle"/>
+        <result column="sugDetail" jdbcType="VARCHAR" property="sugDetail"/>
+        <result column="sugTime" jdbcType="TIMESTAMP" property="sugTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        sugId,useId,sugTitle,sugDetail,
+        sugTime
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Suggest">
+        insert into suggest
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sugId != null">
+                sugId,
+            </if>
+            <if test="useId != null">
+                useId,
+            </if>
+            <if test="sugTitle != null">
+                sugTitle,
+            </if>
+            <if test="sugDetail != null">
+                sugDetail,
+            </if>
+                sugTime
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="sugId != null">
+                #{sugId},
+            </if>
+            <if test="useId != null">
+                #{useId},
+            </if>
+            <if test="sugTitle != null">
+                #{sugTitle},
+            </if>
+            <if test="sugDetail != null">
+                #{sugDetail},
+            </if>
+            now(),
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bishe.back.domain.Suggest">
+        update suggest
+        <set>
+            <if test="sugTitle != null">
+                sugTitle = #{sugTitle},
+            </if>
+            <if test="sugDetail != null">
+                sugDetail = #{sugDetail},
+            </if>
+            <if test="sugTime != null">
+                sugTime = #{sugTime},
+            </if>
+        </set>
+        where sugId = #{sugId}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from suggest
+        where sugId = #{sugId}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from suggest
+        where sugId = #{sugId}
+    </select>
+
+    <select id="allSuggest" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from suggest
+    </select>
+
+<!--    <select id="getByShopname" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from hanfushop-->
+<!--        where shopName = #{shopName}-->
+<!--    </select>-->
+
+    <!--    <select id="getByUserAccount" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+    <!--        select-->
+    <!--        <include refid="Base_Column_List"/>-->
+    <!--        from articles-->
+    <!--        where userAccount = #{userAccount}-->
+    <!--    </select>-->
+
+</mapper>

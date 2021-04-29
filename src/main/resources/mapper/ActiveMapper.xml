@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.ActiveMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Active">
+        <id column="acId" jdbcType="INTEGER" property="acId"/>
+        <result column="acName" jdbcType="VARCHAR" property="acName"/>
+        <result column="acAddress" jdbcType="VARCHAR" property="acAddress"/>
+        <result column="acTime" jdbcType="TIMESTAMP" property="acTime"/>
+        <result column="acForm" jdbcType="VARCHAR" property="acForm"/>
+        <result column="acSponsor" jdbcType="VARCHAR" property="acSponsor"/>
+        <result column="acDetails" jdbcType="VARCHAR" property="acDetails"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        acId,acName,acAddress,acTime,
+        acForm,acSponsor,acDetails,pic
+    </sql>
+
+    <insert id="insert" parameterType="com.bishe.back.domain.Active">
+        insert into hanfuactivity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="acId != null">
+                acId,
+            </if>
+            <if test="acName != null">
+                acName,
+            </if>
+            <if test="acAddress != null">
+                acAddress,
+            </if>
+            <if test="acTime != null">
+                acTime,
+            </if>
+            <if test="acForm != null">
+                acForm,
+            </if>
+            <if test="acSponsor != null">
+                acSponsor,
+            </if>
+            <if test="acDetails != null">
+                acDetails,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+        </trim>
+        <trim prefix=" values (" suffix=")" suffixOverrides=",">
+            <if test="acId != null">
+                #{acId},
+            </if>
+            <if test="acName != null">
+                #{acName},
+            </if>
+            <if test="acAddress != null">
+                #{acAddress},
+            </if>
+            <if test="acTime != null">
+                #{acTime},
+            </if>
+            <if test="acForm != null">
+                #{acForm},
+            </if>
+            <if test="acSponsor != null">
+                #{acSponsor},
+            </if>
+            <if test="acDetails != null">
+                #{acDetails},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bishe.back.domain.Active">
+        update hanfuactivity
+        <set>
+            <if test="acName != null">
+                acName = #{acName},
+            </if>
+            <if test="acAddress != null">
+                acAddress = #{acAddress},
+            </if>
+            <if test="acTime != null">
+                acTime = #{acTime},
+            </if>
+            <if test="acForm != null">
+                acForm = #{acForm},
+            </if>
+            <if test="acSponsor != null">
+                acSponsor = #{acSponsor},
+            </if>
+            <if test="acDetails != null">
+                acDetails = #{acDetails},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+        </set>
+        where acId = #{acId}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from hanfuactivity
+        where acId = #{acId}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfuactivity
+        where acId = #{acId}
+    </select>
+
+    <select id="allActive" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfuactivity
+    </select>
+
+    <select id="activeOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfuactivity
+        where acName like #{acName}
+    </select>
+
+    <select id="activeOfForm" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfuactivity
+        where acForm like #{acForm}
+    </select>
+
+
+    <select id="getByActivename" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from hanfuactivity
+        where acName = #{acName}
+    </select>
+
+<!--    <select id="getByUserAccount" resultMap="BaseResultMap" parameterType="java.lang.String">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from articles-->
+<!--        where userAccount = #{userAccount}-->
+<!--    </select>-->
+
+</mapper>

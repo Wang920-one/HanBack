@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bishe.back.dao.ManageMapper">
+    <resultMap id="BaseResultMap" type="com.bishe.back.domain.Manage">
+        <id column="manageId" jdbcType="INTEGER" property="manageId"/>
+        <result column="manageEmail" jdbcType="VARCHAR" property="manageEmail"/>
+        <result column="managePassword" jdbcType="VARCHAR" property="managePassword"/>
+        <result column="manageName" jdbcType="VARCHAR" property="manageName"/>
+        <result column="manageSex" jdbcType="TINYINT" property="manageSex"/>
+        <result column="managePhone" jdbcType="VARCHAR" property="managePhone"/>
+    </resultMap>
+
+    <select id="verifyPassword" resultType="java.lang.Integer">
+        select count(*)
+        from manage
+        where manageName = #{manageName}
+          and managePassword = #{managePassword};
+    </select>
+</mapper>
