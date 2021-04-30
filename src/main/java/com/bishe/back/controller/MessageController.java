@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Type;
 
 @RestController
 @RequestMapping("/message")
@@ -36,8 +37,17 @@ public class MessageController {
         message.setFriendId(Integer.parseInt(friendId));
         message.setSenderId(Integer.parseInt(senderId));
         message.setReceiverId(Integer.parseInt(receiverId));
+//        message.setStatus(new Byte(status));
         message.setContent(content);
+        Message message1 = new Message();
+        message1.setUserId(Integer.parseInt(friendId));
+        message1.setFriendId(Integer.parseInt(userId));
+        message1.setSenderId(Integer.parseInt(senderId));
+        message1.setReceiverId(Integer.parseInt(receiverId));
+//        message1.setStatus(new Byte(status));
+        message1.setContent(content);
         boolean flag = messageService.insert(message);
+        boolean flag1 = messageService.insert(message1);
         if (flag) {   //保存成功
             jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "信息发送成功");
@@ -45,6 +55,13 @@ public class MessageController {
         }
         jsonObject.put(Consts.CODE, 0);
         jsonObject.put(Consts.MSG, "信息发送失败");
+        if (flag1) {   //保存成功
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "信息接收成功");
+            return jsonObject;
+        }
+        jsonObject.put(Consts.CODE, 0);
+        jsonObject.put(Consts.MSG, "信息接收失败");
         return jsonObject;
     }
 

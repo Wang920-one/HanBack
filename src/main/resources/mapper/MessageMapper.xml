@@ -93,7 +93,7 @@
         select
         <include refid="Base_Column_List"/>
         from message
-        where userId = #{userId} and userId = #{friendId}
+        where userId = #{userId} GROUP BY friendId
     </select>
 
 </mapper>
