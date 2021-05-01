@@ -1,6 +1,7 @@
 package com.bishe.back.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bishe.back.domain.Article;
 import com.bishe.back.domain.Message;
 import com.bishe.back.service.ManageService;
 import com.bishe.back.service.MessageService;
@@ -65,6 +66,47 @@ public class MessageController {
         return jsonObject;
     }
 
+    //更新消息状态
+    @RequestMapping(value = "/updateStatus", method = RequestMethod.POST)
+    public Object updateStatus(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        String senderId=request.getParameter("senderId").trim();      //主键
+        String receiverId=request.getParameter("receiverId").trim();      //主键
+        String status = request.getParameter("status").trim();          //消息状态
+
+        //保存到前端用户的对象中
+        Message message = new Message();
+        message.setSenderId(Integer.parseInt(senderId));
+        message.setReceiverId(Integer.parseInt(receiverId));
+        message.setStatus(new Byte(status));
+
+        boolean flag = messageService.updateStatus(message);
+        if(flag){   //保存成功
+            jsonObject.put(Consts.CODE,1);
+            jsonObject.put(Consts.MSG,"信息已读");
+            return jsonObject;
+        }
+        jsonObject.put(Consts.CODE,0);
+        jsonObject.put(Consts.MSG,"已读失败");
+        return jsonObject;
+    }
+
+    //查询所有未读信息列表
+    @RequestMapping(value = "/allUnRead", method = RequestMethod.GET)
+    public Object allUnRead(HttpServletRequest request) {
+        String userId = request.getParameter("userId").trim();
+        return messageService.allUnRead(Integer.parseInt(userId));
+    }
+
+    //查询与某个用户的的未读信息列表
+    @RequestMapping(value = "/allFriendUnRead", method = RequestMethod.GET)
+    public Object allFriendUnRead(HttpServletRequest request) {
+        String friendId= request.getParameter("friendId").trim();
+        String senderId= request.getParameter("senderId").trim();
+        String receiverId = request.getParameter("receiverId").trim();
+        return messageService.allFriendUnRead(Integer.parseInt(senderId),Integer.parseInt(receiverId),Integer.parseInt(friendId));
+    }
+
     //    删除某个好友的聊天记录
     @RequestMapping(value = "/delFriendRecord", method = RequestMethod.GET)
     public Object delFriendRecord(HttpServletRequest request) {
@@ -88,5 +130,4 @@ public class MessageController {
         String friendId = request.getParameter("friendId").trim();
         return messageService.friendRecord(Integer.parseInt(userId),Integer.parseInt(friendId));
     }
-
 }

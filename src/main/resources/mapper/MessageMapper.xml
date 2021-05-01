@@ -70,6 +70,37 @@
         </trim>
     </insert>
 
+    <update id="updateStatus" parameterType="com.bishe.back.domain.Message">
+        update message
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="userId != null">
+                userId = #{userId},
+            </if>
+            <if test="friendId != null">
+                friendId = #{friendId},
+            </if>
+<!--            <if test="senderId != null">-->
+<!--                senderId = #{senderId},-->
+<!--            </if>-->
+<!--            <if test="receiverId != null">-->
+<!--                receiverId = #{receiverId},-->
+<!--            </if>-->
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="sendTime != null">
+                sendTime = #{sendTime},
+            </if>
+        </set>
+        where senderId = #{senderId} and receiverId = #{receiverId}
+    </update>
+
     <delete id="deleteAll" parameterType="java.lang.Integer">
         delete
         from message
@@ -94,6 +125,20 @@
         <include refid="Base_Column_List"/>
         from message
         where userId = #{userId} GROUP BY friendId
+    </select>
+
+    <select id="allFriendUnRead" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where receiverId = #{receiverId} and friendId = #{friendId} and senderId = #{senderId} and status=1
+    </select>
+
+    <select id="allUnRead" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from message
+        where userId = #{userId} and status=1
     </select>
 
 </mapper>

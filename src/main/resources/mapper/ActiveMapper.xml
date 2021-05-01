@@ -141,11 +141,4 @@
         where acName = #{acName}
     </select>
 
-<!--    <select id="getByUserAccount" resultMap="BaseResultMap" parameterType="java.lang.String">-->
-<!--        select-->
-<!--        <include refid="Base_Column_List"/>-->
-<!--        from articles-->
-<!--        where userAccount = #{userAccount}-->
-<!--    </select>-->
-
 </mapper>

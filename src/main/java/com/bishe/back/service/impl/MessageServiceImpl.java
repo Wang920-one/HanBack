@@ -33,6 +33,24 @@ public class MessageServiceImpl implements MessageService {
         return messageMapper.delFriendRecord(userId,friendId)>0;
     }
 
+    //更新信息的状态
+    @Override
+    public boolean updateStatus(Message message) {
+        return messageMapper.updateStatus(message)>0;
+    }
+
+    //查询某个好友的未读信息
+    @Override
+    public List<Message> allFriendUnRead(Integer senderId,Integer receiverId, Integer friendId) {
+        return messageMapper.allFriendUnRead(senderId,receiverId,friendId);
+    }
+
+    //查询所有未读信息
+    @Override
+    public List<Message> allUnRead(Integer userId) {
+        return messageMapper.allUnRead(userId);
+    }
+
     //查询所有聊天，聊天列表
     @Override
     public List<Message> allRecord(Integer userId) {
