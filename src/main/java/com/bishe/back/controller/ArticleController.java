@@ -120,6 +120,12 @@ public class ArticleController {
         return articleService.allArticle();
     }
 
+    //    查询所有稿件后端
+    @RequestMapping(value = "/allArticles",method = RequestMethod.GET)
+    public Object allArticles(HttpServletRequest request){
+        return articleService.allArticles();
+    }
+
     //上传图片
     @RequestMapping(value = "/updateArticleImg", method = RequestMethod.POST)
     public Object updateArticleImage(@RequestParam("file") MultipartFile articleFile, @RequestParam("id")int id){

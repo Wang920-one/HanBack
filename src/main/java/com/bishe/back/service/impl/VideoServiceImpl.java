@@ -64,6 +64,12 @@ public class VideoServiceImpl implements VideoService {
         return videoMapper.allVideo();
     }
 
+    //查询所有后端
+    @Override
+    public List<Video> allVideos() {
+        return videoMapper.allVideos();
+    }
+
     //降序浏览量查询所有
     @Override
     public List<Video> videoOfBrowse() {

@@ -57,5 +57,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.allArticle();
     }
 
+    //查询所有后端
+    @Override
+    public List<Article> allArticles() {
+        return articleMapper.allArticles();
+    }
+
 }
 

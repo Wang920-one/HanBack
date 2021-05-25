@@ -95,7 +95,8 @@ public class MessageController {
     @RequestMapping(value = "/allUnRead", method = RequestMethod.GET)
     public Object allUnRead(HttpServletRequest request) {
         String userId = request.getParameter("userId").trim();
-        return messageService.allUnRead(Integer.parseInt(userId));
+        String receiverId = request.getParameter("receiverId").trim();
+        return messageService.allUnRead(Integer.parseInt(userId),Integer.parseInt(receiverId));
     }
 
     //查询与某个用户的的未读信息列表

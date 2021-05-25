@@ -13,11 +13,20 @@ public class User implements Serializable {
     private String userPhone;
     private String userQQ;
     private String userImage;
+    private String userBackImg;
     private String userAddress;
     private Date userBirthday;
     private String userSign;
     private Date createTime;
     private Date updateTime;
+
+    public String getUserBackImg() {
+        return userBackImg;
+    }
+
+    public void setUserBackImg(String userBackImg) {
+        this.userBackImg = userBackImg;
+    }
 
     public Date getCreateTime() {
         return createTime;

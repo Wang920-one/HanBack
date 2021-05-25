@@ -81,7 +81,7 @@ public class CollectController {
         return flag;
     }
 
-    //    查询所有前端用户
+    //    查询所有收藏
     @RequestMapping(value = "/allCollect", method = RequestMethod.GET)
     public Object allCollect(HttpServletRequest request) {
         return collectService.allCollect();

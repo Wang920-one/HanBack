@@ -22,6 +22,9 @@ public interface VideoService {
     //    查询所有稿件
     public List<Video> allVideo();
 
+    //    查询所有稿件后端
+    public List<Video> allVideos();
+
     //     根据名称模糊查询列表
     public List<Video> videoOfTitle(String videoTitle);
 

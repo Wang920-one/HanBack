@@ -24,7 +24,7 @@ public interface MessageMapper {
     public List<Message> allFriendUnRead(Integer senderId,Integer receiverId,Integer friendId);
 
     //查询所有未读信息
-    public List<Message> allUnRead(Integer userId);
+    public List<Message> allUnRead(Integer userId,Integer receiverId);
 
     //查询所有聊天，聊天列表
     public List<Message> allRecord(Integer userId);

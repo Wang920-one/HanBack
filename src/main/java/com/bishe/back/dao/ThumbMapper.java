@@ -11,7 +11,7 @@ import java.util.List;
 public interface ThumbMapper {
 
     //    增加
-    public int insert(Thumb collect);
+    public int insert(Thumb thumb);
 
     //    删除
     public int delete(Integer id);

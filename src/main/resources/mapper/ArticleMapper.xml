@@ -160,34 +160,40 @@
     <delete id="delete" parameterType="java.lang.Integer">
         delete
         from articles
-        where id = #{id}
+        where id = #{id} and actReview = 1
     </delete>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from articles
-        where id = #{id}
+        where id = #{id} and actReview = 1
     </select>
 
     <select id="articleOfUseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from articles
-        where useId = #{useId}
+        where useId = #{useId} and actReview = 1
     </select>
 
     <select id="allArticle" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from articles
+        where actReview = 1
+    </select>
 
+    <select id="allArticles" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from articles
     </select>
 
     <select id="articleOfBioati" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from articles
-        where bioati like #{bioati}
+        where bioati like #{bioati} and actReview = 1
     </select>
 </mapper>

@@ -10,10 +10,10 @@ import java.util.List;
 public interface SuggestMapper {
 
     //    增加
-    public int insert(Suggest article);
+    public int insert(Suggest suggest);
 
     //    修改
-    public int update(Suggest article);
+    public int update(Suggest suggest);
 
     //    删除
     public int delete(Integer sugId);

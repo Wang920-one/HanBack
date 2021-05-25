@@ -47,8 +47,8 @@ public class MessageServiceImpl implements MessageService {
 
     //查询所有未读信息
     @Override
-    public List<Message> allUnRead(Integer userId) {
-        return messageMapper.allUnRead(userId);
+    public List<Message> allUnRead(Integer userId,Integer receiverId) {
+        return messageMapper.allUnRead(userId,receiverId);
     }
 
     //查询所有聊天，聊天列表

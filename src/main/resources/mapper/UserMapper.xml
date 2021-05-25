@@ -11,6 +11,7 @@
         <result column="userPhone" jdbcType="VARCHAR" property="userPhone"/>
         <result column="userQQ" jdbcType="VARCHAR" property="userQQ"/>
         <result column="userImage" jdbcType="VARCHAR" property="userImage"/>
+        <result column="userBackImg" jdbcType="VARCHAR" property="userBackImg"/>
         <result column="userAddress" jdbcType="VARCHAR" property="userAddress"/>
         <result column="userBirthday" jdbcType="TIMESTAMP" property="userBirthday"/>
         <result column="userSign" jdbcType="VARCHAR" property="userSign"/>
@@ -23,7 +24,7 @@
         ,userAccount,userName,userPassword,
         userSex,userEmail,userPhone,userQQ,userImage,
         userAddress,userBirthday,userSign,
-        createTime,updateTime
+        createTime,updateTime,userBackImg
     </sql>
 
     <select id="verifyPassword" resultType="java.lang.Integer">
@@ -53,6 +54,9 @@
             </if>
             <if test="userImage != null">
                 userImage,
+            </if>
+            <if test="userBackImg != null">
+                userBackImg,
             </if>
             <if test="userPhone != null">
                 userPhone,
@@ -98,6 +102,9 @@
             <if test="userImage != null">
                 #{userImage},
             </if>
+            <if test="userBackImg != null">
+                #{userBackImg},
+            </if>
             <if test="userPhone != null">
                 #{userPhone},
             </if>
@@ -142,6 +149,9 @@
             </if>
             <if test="userImage != null">
                 userImage = #{userImage},
+            </if>
+            <if test="userBackImg != null">
+                userBackImg = #{userBackImg},
             </if>
             <if test="userPhone != null">
                 userPhone = #{userPhone},

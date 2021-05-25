@@ -138,7 +138,7 @@
         select
         <include refid="Base_Column_List"/>
         from message
-        where userId = #{userId} and status=1
+        where userId = #{userId} and receiverId = #{receiverId} and status=1
     </select>
 
 </mapper>

@@ -70,6 +70,7 @@ public class UserController {
         String userPassword = request.getParameter("userPassword").trim();          //密码
         String userSex = request.getParameter("userSex").trim();     //性别
         String userImage = request.getParameter("userImage").trim();           //头像
+        String userBackImg = request.getParameter("userBackImg").trim();           //头像
         String userPhone = request.getParameter("userPhone").trim();      //电话
         String userQQ = request.getParameter("userQQ").trim();          //QQ
         String userAddress = request.getParameter("userAddress").trim();          //地址
@@ -84,19 +85,12 @@ public class UserController {
             jsonObject.put(Consts.MSG,"账号不能为空");
             return jsonObject;
         }
-
         User user1 = userService.getByUserAccount(userAccount);
-//        User user2 = userService.getByUsername(userName);
         if(user1!=null){
             jsonObject.put(Consts.CODE,0);
             jsonObject.put(Consts.MSG,"账号已存在");
             return jsonObject;
         }
-//        if(user2!=null){
-//            jsonObject.put(Consts.CODE,0);
-//            jsonObject.put(Consts.MSG,"用户名已存在");
-//            return jsonObject;
-//        }
         if(userPassword==null||userPassword.equals("")){
             jsonObject.put(Consts.CODE,0);
             jsonObject.put(Consts.MSG,"密码不能为空");
@@ -123,6 +117,7 @@ public class UserController {
         user.setUserName(userName);
         user.setUserSex(new Byte(userSex));
         user.setUserImage(userImage);
+        user.setUserBackImg(userBackImg);
         user.setUserPhone(userPhone);
         user.setUserBirthday(birthDate);
         user.setUpdateTime(birthDate2);
@@ -231,7 +226,7 @@ public class UserController {
 
     //上传图片
     @RequestMapping(value = "/updateUserImg", method = RequestMethod.POST)
-    public Object updateShopImage(@RequestParam("file") MultipartFile userFile, @RequestParam("id")int id){
+    public Object updateUserImg(@RequestParam("file") MultipartFile userFile, @RequestParam("id")int id){
         JSONObject jsonObject=new JSONObject();
         if(userFile.isEmpty()){
             jsonObject.put(Consts.CODE,0);
@@ -262,6 +257,53 @@ public class UserController {
                 jsonObject.put(Consts.CODE,1);
                 jsonObject.put(Consts.MSG,"上传成功");
                 jsonObject.put("userImage",storeShopPath);
+                return jsonObject;
+            }
+            jsonObject.put(Consts.CODE,0);
+            jsonObject.put(Consts.MSG,"上传失败");
+            return jsonObject;
+        } catch (IOException e) {
+            jsonObject.put(Consts.CODE,0);
+            jsonObject.put(Consts.MSG,"上传失败"+e.getMessage());
+        }
+        finally {
+            return jsonObject;
+        }
+    }
+
+    //上传背景图片
+    @RequestMapping(value = "/updateUserBackImg", method = RequestMethod.POST)
+    public Object updateUserBgImg(@RequestParam("file") MultipartFile userFile, @RequestParam("id")int id){
+        JSONObject jsonObject=new JSONObject();
+        if(userFile.isEmpty()){
+            jsonObject.put(Consts.CODE,0);
+            jsonObject.put(Consts.MSG,"文件上传失败");
+            return jsonObject;
+        }
+        //文件名=当前时间毫秒+原来的文件名
+        String fileName =System.currentTimeMillis()+userFile.getOriginalFilename();
+        //文件路径
+        String filePath=System.getProperty("user.dir") + System.getProperty("file.separator") + "img"
+                + System.getProperty("file.separator") + "userBackPic";
+        //如果文件路径不存在，新增该路径
+        File file1=new File(filePath);
+        if(!file1.exists()){
+            file1.mkdir();
+        }
+        //实际的文件地址
+        File dest=new File(filePath+System.getProperty("file.separator")+fileName);
+        //存储到数据库里的相对文件夹地址
+        String storeShopPath="/img/userBackPic/"+fileName;
+        try {
+            userFile.transferTo(dest);
+            User user =new User();
+            user.setId(id);
+            user.setUserBackImg(storeShopPath);
+            boolean flag=userService.update(user);
+            if(flag){
+                jsonObject.put(Consts.CODE,1);
+                jsonObject.put(Consts.MSG,"上传成功");
+                jsonObject.put("userBackImg",storeShopPath);
                 return jsonObject;
             }
             jsonObject.put(Consts.CODE,0);

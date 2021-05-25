@@ -21,8 +21,11 @@ public interface ArticleMapper {
     //    查询
     public Article selectByPrimaryKey(Integer id);
 
-    //    查询所有用户
+    //    查询所有稿件
     public List<Article> allArticle();
+
+    //    查询所有稿件后端
+    public List<Article> allArticles();
 
     //     根据名称模糊查询列表
     public List<Article> articleOfBioati(String bioati);

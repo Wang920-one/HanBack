@@ -53,7 +53,7 @@ public class VideoController {
         //存储到数据库里的相对文件地址
         String storeUrlPath = "/video/"+fileName;
         try {
-            mpFile.transferTo(dest);
+            mpFile.transferTo(dest);//保存文件
 //            videoFile.transferTo(dest1);
             //保存到稿件的对象中
             Video video = new Video();
@@ -181,6 +181,12 @@ public class VideoController {
     @RequestMapping(value = "/allVideo",method = RequestMethod.GET)
     public Object allVideo(HttpServletRequest request){
         return videoService.allVideo();
+    }
+
+    //    查询所有稿件后端
+    @RequestMapping(value = "/allVideos",method = RequestMethod.GET)
+    public Object allVideos(HttpServletRequest request){
+        return videoService.allVideos();
     }
 
     //    降序浏览量查询所有

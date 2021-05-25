@@ -60,46 +60,6 @@ public class CommentController {
         return jsonObject;
     }
 
-    //    修改评论内容
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public Object updateComment(HttpServletRequest request) {
-        JSONObject jsonObject = new JSONObject();
-        String id = request.getParameter("id").trim();      //主键
-        String useId = request.getParameter("useId");     //用户id
-        String videoid = request.getParameter("videoid");     //视频id
-        String articleid = request.getParameter("articleid");     //专栏id
-//        String parentId = request.getParameter("parentId");
-        String type = request.getParameter("type");     //评论类型（0视频1专栏）
-        String comtContent = request.getParameter("comtContent").trim();          //评论内容
-
-        //保存到前端用户的对象中
-        Comment comment = new Comment();
-        comment.setId(Integer.parseInt(id));
-        comment.setUseId(Integer.parseInt(useId));
-//        comment.setParentId(Integer.parseInt(parentId));
-        comment.setType(new Byte(type));
-        if (videoid!=null&&videoid.equals("")) {
-            videoid=null;
-        } else {
-            comment.setVideoid(Integer.parseInt(videoid));
-        }
-        if (articleid!=null&&articleid.equals("")) {
-            articleid=null;
-        } else {
-            comment.setArticleid(Integer.parseInt(articleid));
-        }
-        comment.setComtContent(comtContent);
-        boolean flag = commentService.update(comment);
-        if (flag) {   //保存成功
-            jsonObject.put(Consts.CODE, 1);
-            jsonObject.put(Consts.MSG, "修改成功");
-            return jsonObject;
-        }
-        jsonObject.put(Consts.CODE, 0);
-        jsonObject.put(Consts.MSG, "修改失败");
-        return jsonObject;
-    }
-
     //    删除评论
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public Object deleteComment(HttpServletRequest request) {
@@ -115,7 +75,7 @@ public class CommentController {
         return commentService.selectByPrimaryKey(Integer.parseInt(id));
     }
 
-    //    查询所有前端用户
+    //    查询所有评论
     @RequestMapping(value = "/allComment", method = RequestMethod.GET)
     public Object allComment(HttpServletRequest request) {
         return commentService.allComment();

@@ -33,6 +33,11 @@ public class FileConfig implements WebMvcConfigurer {
                         + System.getProperty("file.separator") + "userPic" + System.getProperty("file.separator")
         );
 
+        //用户背景图
+        registry.addResourceHandler("/img/userBackPic/**").addResourceLocations(
+                "file:" + System.getProperty("user.dir") + System.getProperty("file.separator") + "img"
+                        + System.getProperty("file.separator") + "userBackPic" + System.getProperty("file.separator")
+        );
         //稿件封面
         registry.addResourceHandler("/img/articlePic/**").addResourceLocations(
                 "file:" + System.getProperty("user.dir") + System.getProperty("file.separator") + "img"

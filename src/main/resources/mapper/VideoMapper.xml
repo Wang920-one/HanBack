@@ -163,17 +163,24 @@
         select
         <include refid="Base_Column_List"/>
         from video
-        where id = #{id}
+        where id = #{id} and videoReview = 1
     </select>
 
     <select id="videoOfUseId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from video
-        where useId = #{useId}
+        where useId = #{useId} and videoReview = 1
     </select>
 
     <select id="allVideo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where videoReview = 1
+    </select>
+
+    <select id="allVideos" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from video
@@ -183,20 +190,21 @@
         select
         <include refid="Base_Column_List"/>
         from video
-        where videoTitle like #{videoTitle}
+        where videoTitle like #{videoTitle}  and videoReview = 1
     </select>
 
     <select id="videoOfType" resultMap="BaseResultMap" parameterType="java.lang.String">
         select
         <include refid="Base_Column_List"/>
         from video
-        where videoType like #{videoType}
+        where videoType like #{videoType} and videoReview = 1
     </select>
 
     <select id="videoOfBrowse" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from video
+        where videoReview = 1
         order by videoBrowse desc
     </select>
 
@@ -211,6 +219,7 @@
         select
         <include refid="Base_Column_List"/>
         from video
+        where videoReview = 1
         order by videoThumes desc
     </select>
 

@@ -81,7 +81,7 @@ public class ThumbController {
         return flag;
     }
 
-    //    查询所有前端用户
+    //    查询所有点赞
     @RequestMapping(value = "/allThumb", method = RequestMethod.GET)
     public Object allThumb(HttpServletRequest request) {
         return thumbService.allThumb();
