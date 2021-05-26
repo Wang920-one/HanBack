@@ -15,7 +15,7 @@
     <description>汉服网站</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
     </properties>
 
     <dependencies>
@@ -90,8 +90,26 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.2.RELEASE</version>
                 <configuration>
+                    <mainClass>com.bishe.back.BackApplication</mainClass><!-- 指定启动主类 -->
                     <executable>true</executable>
-                    <fork>true</fork>
+                    <fork>true</fork><!-- 如果没有该配置，devtools不会生效  打包 将外部jar包打包进项目中 -->
+                    <includeSystemScope>true</includeSystemScope><!-- 打包 将外部jar包打包进项目中 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
